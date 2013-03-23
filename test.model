@@ -1,0 +1,25 @@
+
+<model>
+    <nodes>
+        <node id="3" visible="1" xcoord="-174" ycoord="100">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="4" visible="1" xcoord="84" ycoord="147">
+            <concentration>364.00000,18.20001</concentration>
+        </node>
+        <node id="0" visible="1" xcoord="-106" ycoord="-165">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="1" visible="1" xcoord="145" ycoord="-102">
+            <concentration>416.00000,20.79997</concentration>
+        </node>
+        <node id="2" visible="1" xcoord="20" ycoord="-9">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+    </nodes>
+    <edges>
+        <edge id="e2" visible="1" from="3" to="2"/>
+        <edge id="e0" visible="1" from="0" to="1"/>
+        <edge id="e1" visible="1" from="2" to="4"/>
+    </edges>
+</model>

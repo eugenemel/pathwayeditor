@@ -1,0 +1,47 @@
+
+<model>
+    <nodes>
+        <node id="3" visible="1" xcoord="-377.6" ycoord="-355.2">
+            <concentration>100.00000,320.00000</concentration>
+        </node>
+        <node id="4" visible="1" xcoord="160" ycoord="-355.2">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="5" visible="1" xcoord="332.8" ycoord="-355.2">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="6" visible="1" xcoord="332.8" ycoord="-196.8">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="7" visible="1" xcoord="313.6" ycoord="-38.4">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="8" visible="1" xcoord="-112.32" ycoord="374.4">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="9" visible="1" xcoord="-396.8" ycoord="379.2">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="0" visible="1" xcoord="-108.8" ycoord="-312">
+            <concentration>100.00000,10.00000</concentration>
+        </node>
+        <node id="1" visible="1" xcoord="-108.8" ycoord="-38.4">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+        <node id="2" visible="1" xcoord="83.2" ycoord="-52.8">
+            <concentration>100.00000,5.00000</concentration>
+        </node>
+    </nodes>
+    <edges>
+        <edge id="e2" visible="1" from="1" to="2"/>
+        <edge id="e3" visible="1" from="0" to="4"/>
+        <edge id="e4" visible="1" from="4" to="5"/>
+        <edge id="e5" visible="1" from="5" to="6"/>
+        <edge id="e6" visible="1" from="6" to="7"/>
+        <edge id="e7" visible="1" from="7" to="2"/>
+        <edge id="e8" visible="1" from="1" to="8"/>
+        <edge id="e9" visible="1" from="8" to="9"/>
+        <edge id="e0" visible="1" from="3" to="0"/>
+        <edge id="e1" visible="1" from="1" to="0"/>
+    </edges>
+</model>

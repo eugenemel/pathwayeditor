@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/zoomin.png</file>
+        <file>images/zoomout.png</file>
+        <file>images/zoomInText.png</file>
+        <file>images/zoomOutText.png</file>
+        <file>images/zoomInNode.png</file>
+        <file>images/zoomOutNode.png</file>
+        <file>images/zoomInEdge.png</file>
+        <file>images/zoomOutEdge.png</file>
+        <file>images/createEdge.png</file>
+        <file>images/createNode.png</file>
+        <file>images/mouseSelect.png</file>
+        <file>images/AddGreen.png</file>
+        <file>images/go.png</file>
+        <file>images/graph.png</file>
+        <file>images/pause.png</file>
+        <file>images/reset.png</file>
+        <file>images/save.png</file>
+        <file>images/open.png</file>
+    </qresource>
+</RCC>

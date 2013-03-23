@@ -1,0 +1,43 @@
+
+<model>
+    <nodes>
+        <node id="3" visible="1" xcoord="-261.034" ycoord="-144.147">
+            <concentration>33.09453,1.65473,0.00000</concentration>
+        </node>
+        <node id="4" visible="1" xcoord="-261.034" ycoord="-257.947">
+            <concentration>52.72598,2.63630,0.00000</concentration>
+        </node>
+        <node id="5" visible="1" xcoord="-172.045" ycoord="49.3134">
+            <concentration>119.77058,5.98853,0.00000</concentration>
+        </node>
+        <node id="6" visible="1" xcoord="-172.045" ycoord="220.014">
+            <concentration>110.46985,5.52349,0.00000</concentration>
+        </node>
+        <node id="7" visible="1" xcoord="41.5282" ycoord="220.014">
+            <concentration>249.50803,12.47540,0.00000</concentration>
+        </node>
+        <node id="8" visible="1" xcoord="-261.034" ycoord="-383.127">
+            <concentration>100.00000,5.00000,0.00000</concentration>
+        </node>
+        <node id="0" visible="1" xcoord="-367.281" ycoord="-63.6453">
+            <concentration>60.94154,3.04708,0.00000</concentration>
+        </node>
+        <node id="1" visible="1" xcoord="-172.045" ycoord="-64.4868">
+            <concentration>120.42620,6.02131,0.00000</concentration>
+        </node>
+        <node id="2" visible="1" xcoord="59.326" ycoord="-257.947">
+            <concentration>195.16425,9.75821,0.00000</concentration>
+        </node>
+    </nodes>
+    <edges>
+        <edge id="e2" visible="1" from="3" to="0"/>
+        <edge id="e3" visible="1" from="3" to="1"/>
+        <edge id="e4" visible="1" from="0" to="1"/>
+        <edge id="e5" visible="1" from="5" to="6"/>
+        <edge id="e6" visible="1" from="6" to="7"/>
+        <edge id="e7" visible="1" from="1" to="5"/>
+        <edge id="e8" visible="1" from="4" to="2"/>
+        <edge id="e9" visible="1" from="8" to="4"/>
+        <edge id="e1" visible="1" from="4" to="3"/>
+    </edges>
+</model>
