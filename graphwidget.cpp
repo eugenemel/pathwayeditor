@@ -1022,39 +1022,41 @@ void GraphWidget::saveModelFile(QString filename) {
 	stream.setAutoFormatting(true);
 	stream.writeStartElement("model");
 
-			stream.writeStartElement("nodes");
-			foreach( Node* node, nodelist ) {
-					stream.writeStartElement("node");
-					stream.writeAttribute("id",  node->getId() );
-					stream.writeAttribute("visible",QString::number(node->isVisible()));
+	stream.writeStartElement("nodes");
+	foreach( Node* node, nodelist ) {
+		stream.writeStartElement("node");
+		stream.writeAttribute("id",  node->getId() );
+		stream.writeAttribute("name",  node->getNote() );
+		stream.writeAttribute("visible",QString::number(node->isVisible()));
 
-					if ( node->pos().x() != 0 || node->pos().y() != 0 ) {
-							stream.writeAttribute("xcoord",QString::number(node->pos().x()));
-							stream.writeAttribute("ycoord",QString::number(node->pos().y()));
-					}
+		if ( node->pos().x() != 0 || node->pos().y() != 0 ) {
+			stream.writeAttribute("xcoord",QString::number(node->pos().x()));
+			stream.writeAttribute("ycoord",QString::number(node->pos().y()));
+		}
 
-					QVector<float> concentrations = node->getConcentrations();
-					if (concentrations.size() > 0 ) {
-							QStringList concentrationsList;
-							foreach(float v,concentrations) concentrationsList << QString::number(v,'f',5);
-							stream.writeStartElement("concentration");
-							stream.writeCharacters(concentrationsList.join(","));
-							stream.writeEndElement();
-					}
-					stream.writeEndElement();
-			}
+		QVector<float> concentrations = node->getConcentrations();
+		if (concentrations.size() > 0 ) {
+			QStringList concentrationsList;
+			foreach(float v,concentrations) concentrationsList << QString::number(v,'f',5);
+			stream.writeStartElement("concentration");
+			stream.writeCharacters(concentrationsList.join(","));
 			stream.writeEndElement();
+		}
+		stream.writeEndElement();
+	}
+	stream.writeEndElement();
 
-			stream.writeStartElement("edges");
-			foreach( Edge* edge, edgelist ) {
-					stream.writeStartElement("edge");
-					stream.writeAttribute("id",  edge->getId() );
-					stream.writeAttribute("visible",QString::number(edge->isVisible()));
-					stream.writeAttribute("from",edge->sourceNode()->getId());
-					stream.writeAttribute("to",edge->destNode()->getId());
-					stream.writeEndElement();
-			}
-			stream.writeEndElement();
+	stream.writeStartElement("edges");
+	foreach( Edge* edge, edgelist ) {
+		stream.writeStartElement("edge");
+		stream.writeAttribute("id",  edge->getId() );
+		stream.writeAttribute("name",  edge->getNote() );
+		stream.writeAttribute("visible",QString::number(edge->isVisible()));
+		stream.writeAttribute("from",edge->sourceNode()->getId());
+		stream.writeAttribute("to",edge->destNode()->getId());
+		stream.writeEndElement();
+	}
+	stream.writeEndElement();
 
 	stream.writeEndElement();
 
@@ -1087,38 +1089,42 @@ void GraphWidget::loadModelFile(QString filename) {
 	QMap<QString,QString>  concentrations;
 
 	while (!xml.atEnd()) {
-			xml.readNext();
-			if (xml.isStartElement()) {
-					QString id =   xml.attributes().value("id").toString().toLower();
-					currentTag = xml.name().toString();
-					if (xml.name() == "node") {
-							double xpos  = 	xml.attributes().value("xcoord").toString().toDouble();
-							double ypos  = 	xml.attributes().value("ycoord").toString().toDouble();
-							int visible  = 	xml.attributes().value("visible").toString().toInt();
-                            Node* n = addNode(id);
-							n->setVisible(true);
-							if ( visible==0 ) { n->setVisible(false); }
-							if ( xpos != 0 || ypos != 0 ) { n->setPos(xpos,ypos); _doNewLayout=false; }
-					} else if ( xml.name() == "edge" ) {
-							QString from  = 	xml.attributes().value("from").toString();
-							QString to    = 	xml.attributes().value("to").toString();
-							int visible  = 		xml.attributes().value("visible").toString().toInt();
-							Node* n1 = locateNode(from);
-							Node* n2 = locateNode(to);
-							if (n1 and n2 ) { 
-									Edge* e = addEdge(n1,n2,id); e->setVisible(true);
-									if ( visible == 0 ) e->setVisible(false);
-							}
-					}
-			} else if (xml.isEndElement()) {
-				//if (xml.name() == "reaction") addReaction(r);
-			} else if (xml.isCharacters() && !xml.isWhitespace()) {
-				if (currentTag == "concentration" && !currentId.isEmpty()) {
-					concentrations[currentId] += xml.text().toString(); 
-				} else if (currentTag == "fluxes" && !currentId.isEmpty()) {
-					//fluxes[currentId] += xml.text().toString(); 
+		xml.readNext();
+		if (xml.isStartElement()) {
+			QString id =   xml.attributes().value("id").toString().toLower();
+			currentTag = xml.name().toString();
+			if (xml.name() == "node") {
+				QString  name = 	xml.attributes().value("name").toString();
+				double xpos  = 	xml.attributes().value("xcoord").toString().toDouble();
+				double ypos  = 	xml.attributes().value("ycoord").toString().toDouble();
+				int visible  = 	xml.attributes().value("visible").toString().toInt();
+				Node* n = addNode(id);
+				n->setNote(name);
+				n->setVisible(true);
+				if ( visible==0 ) { n->setVisible(false); }
+				if ( xpos != 0 || ypos != 0 ) { n->setPos(xpos,ypos); _doNewLayout=false; }
+			} else if ( xml.name() == "edge" ) {
+				QString  name = 	xml.attributes().value("name").toString();
+				QString from  = 	xml.attributes().value("from").toString();
+				QString to    = 	xml.attributes().value("to").toString();
+				int visible  = 		xml.attributes().value("visible").toString().toInt();
+				Node* n1 = locateNode(from);
+				Node* n2 = locateNode(to);
+				if (n1 and n2 ) { 
+					Edge* e = addEdge(n1,n2,id); e->setVisible(true);
+					e->setNote(name);
+					if ( visible == 0 ) e->setVisible(false);
 				}
 			}
+		} else if (xml.isEndElement()) {
+			//if (xml.name() == "reaction") addReaction(r);
+		} else if (xml.isCharacters() && !xml.isWhitespace()) {
+			if (currentTag == "concentration" && !currentId.isEmpty()) {
+				concentrations[currentId] += xml.text().toString(); 
+			} else if (currentTag == "fluxes" && !currentId.isEmpty()) {
+				//fluxes[currentId] += xml.text().toString(); 
+			}
+		}
 	}
 	if (xml.error() ) qWarning() << "XML ERROR:" << xml.lineNumber() << ": " << xml.errorString(); 
 
@@ -1132,7 +1138,7 @@ void GraphWidget::loadModelFile(QString filename) {
 	}
 
 	/*
-    foreach (QString id, fluxes.keys() ) { 
+	   foreach (QString id, fluxes.keys() ) { 
 		QList<float>v;
 		string cid = id.toStdString();
 		foreach ( QString f, fluxes[id].split(",") )  v << f.toDouble();

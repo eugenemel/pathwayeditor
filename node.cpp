@@ -1,4 +1,5 @@
 #include "node.h"
+#include <QInputDialog>
 
 Node::Node(QGraphicsItem* parent, QGraphicsScene *scene):QGraphicsItem(parent,scene)
 {
@@ -305,7 +306,12 @@ void Node::paintLabel(QPainter *painter) {
 
 void Node::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) {
     //add isotopic concentration
-    setConcentration(1, getConcentration(1)*2);
+    //setConcentration(1, getConcentration(1)*2);
+    bool ok;
+    QString text = QInputDialog::getText(NULL, tr("Change Node Name"),tr("Node name:"), QLineEdit::Normal,_note, &ok);
+    if (ok && !text.isEmpty())
+       this->setNote(text);
+
     emit(nodeDoubleClicked(this));
 }
 
