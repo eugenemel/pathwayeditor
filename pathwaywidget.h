@@ -2,8 +2,10 @@
 #define PATHWAY_VIEW
 
 #include "graphwidget.h"
+#include "tabledockwidget.h"
 
 class MainWindow;
+class TableDockWidget;
 
 class PathwayWidget: public QDockWidget {
       Q_OBJECT

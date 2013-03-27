@@ -13,5 +13,5 @@ OBJECTS_DIR = ./tmp/
 RC_FILE = gui.rc
 RESOURCES +=  gui.qrc
 
-HEADERS += 	stable.h edge.h	graphwidget.h  mainwindow.h  node.h  pathwaywidget.h 
-SOURCES +=  edge.cpp  graphwidget.cpp  main.cpp  mainwindow.cpp  node.cpp  pathwaywidget.cpp
+HEADERS += 	stable.h edge.h	graphwidget.h  mainwindow.h  node.h  pathwaywidget.h tabledockwidget.h numeric_treewidgetitem.h 
+SOURCES +=  edge.cpp  graphwidget.cpp  main.cpp  mainwindow.cpp  node.cpp  pathwaywidget.cpp tabledockwidget.cpp

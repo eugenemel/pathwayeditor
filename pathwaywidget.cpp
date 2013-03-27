@@ -9,6 +9,10 @@ PathwayWidget::PathwayWidget(MainWindow* mw) {
   setWidget(_graph);
   addToolBar();
 
+  connect(_graph,SIGNAL(nodeCreated(Node*)), _mw->getSpreadsheet(), SLOT(addItem(Node*)));
+  connect(_graph,SIGNAL(nodeDeleted(Node*)), _mw->getSpreadsheet(), SLOT(removeItem(Node*)));
+  connect(_graph,SIGNAL(nodeChanged(Node*)), _mw->getSpreadsheet(), SLOT(updateItem(Node*)));
+
   timerId=0;
   setAnimationSpeed(100);
   pause();

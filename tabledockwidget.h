@@ -28,9 +28,13 @@ public slots:
        int loadSpreadsheet(QString fileName);
        int loadCSVFile(QString filename, QString sep);
        void updateTable();
-       void addNode(Node*, QTreeWidgetItem* );
+       void updateItem(Node*);
+       void removeItem(Node*);
+       void addItem(Node*);
+       void addItem(Node*, QTreeWidgetItem* );
        void loadPeakTable();
-	void switchTableView();
+       void switchTableView();
+
 protected:
    	 void dragEnterEvent(QDragEnterEvent *event);
     	 void dropEvent(QDropEvent *event);
@@ -42,12 +46,14 @@ protected slots:
 
 private:
 	  void setupTable();
-          void heatmapBackground(QTreeWidgetItem* item);
-          enum tableViewType{ nodeView=0, edgeView=1 };
-          tableViewType viewType;
+      void heatmapBackground(QTreeWidgetItem* item);
+      enum tableViewType{ nodeView=0, edgeView=1 };
+
+      tableViewType viewType;
           
-	MainWindow* _mainwindow;
-	GraphWidget* _graphWidget;
+      QMap<Node*, NumericTreeWidgetItem*> node_item_map;
+      MainWindow* _mainwindow;
+      GraphWidget* _graphWidget;
 };
 
 #endif

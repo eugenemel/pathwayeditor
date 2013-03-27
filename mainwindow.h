@@ -3,6 +3,10 @@
 
 #include "stable.h"
 #include "pathwaywidget.h"
+#include "tabledockwidget.h"
+
+class PathwayWidget;
+class TableDockWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -11,6 +15,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
 	PathwayWidget* pathwayWidget;
+    TableDockWidget* spreadsheetWidget;
+
+    PathwayWidget* getPathwayWdiget() { return pathwayWidget; }
+    TableDockWidget* getSpreadsheet() { return spreadsheetWidget;   }
 };
 
 #endif

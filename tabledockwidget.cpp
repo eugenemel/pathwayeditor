@@ -45,8 +45,8 @@ TableDockWidget::~TableDockWidget() {
 
 void TableDockWidget::setupTable() {
 
-    int columnCount=2;
-    QStringList colNames;
+    int columnCount=3;
+    QStringList colNames; colNames << "id" << "Name";
     for(unsigned int i=0; i<columnCount; i++ ) {
           colNames << QString::number(i);
     }
@@ -59,10 +59,30 @@ void TableDockWidget::setupTable() {
 }
 
 void TableDockWidget::updateTable() {
-    QTreeWidgetItemIterator it(treeWidget);
-    while (*it) {
-        updateItem(*it);
-        ++it;
+    //QTreeWidgetItemIterator it(treeWidget);
+    //while (*it) { updateItem(*it); ++it; }
+    foreach( Node* n, node_item_map.keys()) updateItem(n);
+}
+
+void TableDockWidget::updateItem(Node* node) {
+    if (node_item_map.contains(node)) {
+        NumericTreeWidgetItem* item = this->node_item_map[node];
+        item->setText(0,node->getId());
+        item->setText(1,node->getNote());
+    }
+}
+
+
+void TableDockWidget::removeItem(Node* node) {
+    if (node_item_map.contains(node)) {
+        NumericTreeWidgetItem* item = this->node_item_map[node];
+        int idx = treeWidget->indexOfTopLevelItem(item);
+        if(idx >= 0) {
+            treeWidget->takeTopLevelItem(idx);
+            node_item_map.remove(node);
+            delete(item);
+            qDebug() << "removeItem()";
+        }
     }
 }
 
@@ -73,29 +93,20 @@ void TableDockWidget::updateItem(QTreeWidgetItem* item) {
 void TableDockWidget::heatmapBackground(QTreeWidgetItem* item) {
 }
 
+void TableDockWidget::addItem(Node* node) {
+        qDebug() << "hello...signallled";
+    addItem(node,0);
+}
 
-void TableDockWidget::addNode(Node* group, QTreeWidgetItem* root) { 
-
-    if (group == NULL) return;
+void TableDockWidget::addItem(Node* node, QTreeWidgetItem* root) {
+    if (node == NULL) return;
     NumericTreeWidgetItem *item = new NumericTreeWidgetItem(root,0);
-    item->setFlags(Qt::ItemIsSelectable |  Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
-
-    if (viewType == nodeView) {
-   /*     item->setText(3,QString::number(group->sampleCount));
-        item->setText(4,QString::number(group->goodPeakCount));
-        item->setText(5,QString::number(group->maxNoNoiseObs));
-        item->setText(6,QString::number(group->maxIntensity,'g',2));
-        item->setText(7,QString::number(group->maxSignalBaselineRatio,'f',0));
-        item->setText(8,QString::number(group->maxQuality,'f',2));
-
-        if ( group->changeFoldRatio != 0 ) {
-            item->setText(9,QString::number(group->changeFoldRatio, 'f', 2));
-            item->setText(10,QString::number(group->changePValue,    'e', 4));
-        }
-   */  
-   }
+    item->setFlags(Qt::ItemIsSelectable |  Qt::ItemIsEnabled);;
+    node_item_map[node] = item;
     if ( root == NULL ) treeWidget->addTopLevelItem(item);
-    updateItem(item);
+
+
+    updateItem(node);
 }
 
 

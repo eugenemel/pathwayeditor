@@ -1,5 +1,6 @@
 #include "graphwidget.h" 
 
+
 void MyScene::mousePressEvent ( QGraphicsSceneMouseEvent * mouseEvent ) {
     down =  mouseEvent->buttonDownScenePos(Qt::LeftButton);
     QGraphicsScene::mousePressEvent(mouseEvent);
@@ -188,6 +189,7 @@ void GraphWidget::removeNode(Node* n) {
         nodelist.remove(n->getId());
     }
 
+    emit(nodeDeleted(n));
     delete(n);
 }
 
@@ -271,9 +273,7 @@ void GraphWidget::scaleView(qreal scaleFactor)
     scale(scaleFactor, scaleFactor);
 }
 
-void GraphWidget::setTitle(const QString& titleText) { 
-    emit(titleChanged(titleText));
-}
+
 
 void GraphWidget::updateSceneRect() {
     float minX=0;
@@ -721,6 +721,7 @@ void GraphWidget::createNode() {
     x->setPos( _myscene->getLastMousePressPos() );
     adjustNodeSizes();
     _myscene->update();
+    emit nodeCreated(x);
 }
 
 void GraphWidget::createEdge() {

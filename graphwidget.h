@@ -142,7 +142,9 @@ public slots:
     QString getBackgroundImageFilename() { return _backgroundImageFile; }
 
 signals:
-    void titleChanged(QString);
+    void nodeCreated(Node*);
+    void nodeChanged(Node*);
+    void nodeDeleted(Node*);
 
 protected:
     void updateSceneRect();
